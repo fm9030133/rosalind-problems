@@ -22,21 +22,16 @@ Sample Dataset: 5 3
 Sample Output: 19
 """
 
-n = 8
+n = 5
 k = 3
-seq = ['0'] # Container for rabbit pair population
-pairs_count = [] # 
+seq = {'b':1, 'a':0} # Container for rabbit pair population
+pairs_count = [seq['b'] + seq['a']] # Track total pair count
 
-i = 0
-while i < n - 1: # 1 less because n alone overshot. Unclear why. ***
-    pairs_count += [len(seq)]
-    for r in range(len(seq)): # Check every rabbit: either baby 0 or mature 1
-        
-        if seq[r] == '0': # Baby grows up
-            seq[r] = '1'
-        elif seq[r] == '1': # Mature rabit bears k-sized litter
-            seq += ['0'] * k
-    i += 1
+for i in range(n - 1): # Account for off-by-one error
+    b_prev = seq['b'] # Store previous baby and adult counts
+    a_prev = seq['a']
+    seq['b'] = a_prev * k # Each previous adult has k-sized litter
+    seq['a'] = b_prev + a_prev # Each previous baby becomes adult. Previous adults persist.
+    pairs_count += [seq['b'] + seq['a']] # Track total pair count
 
-print(seq)
-print(pairs_count)
+print(pairs_count[-1])
