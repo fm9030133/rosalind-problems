@@ -22,24 +22,16 @@ Sample Dataset: 5 3
 Sample Output: 19
 """
 
-'''
-seq = [1,1]
-for i in range(1,n):
-    seq.append(seq[-1] + seq[-2])
-'''
-
-n = 5
+n = 8
 k = 3
 seq = ['0'] # Container for rabbit pair population
-pairs_count = 1 # 
+pairs_count = [] # 
 
 i = 0
 while i < n - 1: # 1 less because n alone overshot. Unclear why. ***
-    print('i = ', i)
-    print(seq)
-    print(pairs_count)
+    pairs_count += [len(seq)]
     for r in range(len(seq)): # Check every rabbit: either baby 0 or mature 1
-        pairs_count = len(seq)
+        
         if seq[r] == '0': # Baby grows up
             seq[r] = '1'
         elif seq[r] == '1': # Mature rabit bears k-sized litter
